@@ -1,0 +1,11 @@
+<!-- insert_before "[data-hook='stock-contents']" -->
+
+<% if SolidusQuietLogistics.configuration.enabled&.call(@order) %>
+  <fieldset class="no-border-bottom quiet-logistics-information">
+    <legend>
+      <%= t('quiet_logistics.information_label') %>
+    </legend>
+    <dl class="ql-info">
+      <%= shipment_order(shipment) %>
+  </fieldset>
+<% end %>

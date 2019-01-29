@@ -1,5 +1,6 @@
 require 'solidus_core'
 require 'solidus_quiet_logistics/engine'
+require 'deface'
 
 class Configuration
   # QL

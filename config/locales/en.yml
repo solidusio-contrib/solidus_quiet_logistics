@@ -2,4 +2,9 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: Hello world
+  quiet_logistics:
+    information_label: Quiet Logistics Information
+    shipment_order:
+      label: Outbound shipment order pushed?
+      pushed: Pushed to QL
+      not_pushed: Not Pushed to QL
