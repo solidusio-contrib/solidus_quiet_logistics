@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+APP_PATH = File.expand_path('../config/application', __dir__)
+
+require_relative '../config/environment'
+
+SolidusQuietLogistics::Inbound::QueuePoller.new.start do |message|
+  Rails.logger.debug message.body
+end
