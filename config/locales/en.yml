@@ -8,3 +8,8 @@ en:
       label: Outbound shipment order pushed?
       pushed: Pushed to QL
       not_pushed: Not Pushed to QL
+    admin:
+      sending: 'Sending to QL...'
+      shipment_order:
+        push_to_ql: Push shipment order
+        pending: Shipment order document will be sent to QL

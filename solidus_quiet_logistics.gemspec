@@ -22,7 +22,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'deface', '~> 1.3'
 
   s.add_development_dependency 'capybara'
-  s.add_development_dependency 'poltergeist'
+  s.add_development_dependency 'selenium-webdriver'
+  s.add_development_dependency 'chromedriver-helper'
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'database_cleaner'

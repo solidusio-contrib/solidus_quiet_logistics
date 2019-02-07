@@ -19,6 +19,8 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
 require 'aws-sdk'
+require 'selenium-webdriver'
+require 'chromedriver-helper'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -33,6 +35,9 @@ require 'spree/testing_support/url_helpers'
 
 # Requires factories defined in lib/solidus_quiet_logistics/factories.rb
 require 'solidus_quiet_logistics/factories'
+
+Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.server = :webrick
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
