@@ -2,11 +2,11 @@
 
 module QuietLogisticsHelpers
   def read_ql_message(document_type)
-    File.read(Rails.root.join('spec', 'support', 'files', 'quiet_logistics', 'messages', "#{document_type}.xml"))
+    File.read(Rails.root.join('..', 'support', 'files', 'solidus_quiet_logistics', 'messages', "#{document_type}.xml"))
   end
 
   def read_ql_document(document_type)
-    File.read(Rails.root.join('spec', 'support', 'files', 'quiet_logistics', 'documents', "#{document_type}.xml"))
+    File.read(Rails.root.join('..', 'support', 'files', 'solidus_quiet_logistics', 'documents', "#{document_type}.xml"))
   end
 end
 
