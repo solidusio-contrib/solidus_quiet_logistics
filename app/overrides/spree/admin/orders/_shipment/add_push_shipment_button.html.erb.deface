@@ -1,0 +1,8 @@
+<!-- insert_after "table.shipment" -->
+
+<% if SolidusQuietLogistics.configuration.enabled&.call(@order) %>
+  <% if !shipment.shipped? && !shipment.pushed? %>
+    <%= button_to "#{t('quiet_logistics.admin.shipment_order.push_to_ql')}", push_shipment_order_admin_shipment_path(shipment),
+      method: :post, remote: true, class: 'btn btn-primary push-shipment js-push-shipment-hook' %>
+  <% end %>
+<% end %>
