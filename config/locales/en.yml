@@ -11,5 +11,14 @@ en:
     admin:
       sending: 'Sending to QL...'
       shipment_order:
+        label: Outbound shipment order pushed?
+        pushed: Pushed to QL
+        not_pushed: Not Pushed to QL
         push_to_ql: Push shipment order
         pending: Shipment order document will be sent to QL
+      shipment_order_cancel:
+        sent_label: Outbound shipment order cancel sent?
+        cancellation_label: Shipment order cancellation date by QL
+        sent: Cancellation sent at %{cancellation_date}
+        cancellation_date: Cancellation received at %{cancellation_date}
+        not_sent: Cancellation not sent

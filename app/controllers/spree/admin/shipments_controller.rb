@@ -3,11 +3,20 @@
 module Spree
   module Admin
     class ShipmentsController < Spree::Admin::BaseController
-      before_action :load_shipment, only: :push_shipment_order
+      before_action :load_shipment, only: %i[destroy push_shipment_order]
 
       respond_to :html, :js
 
       attr_reader :shipment
+
+      def destroy
+        return super unless SolidusQuietLogistics.configuration.enabled&.call(shipment.order) ||
+                            shipment.ql_cancellation_sent.blank? ||
+                            shipment.ql_cancellation_date.blank?
+
+        SolidusQuietLogistics::Outbound::PushShipmentOrderCancelDocumentJob
+          .perform_later(shipment)
+      end
 
       def push_shipment_order
         if SolidusQuietLogistics.configuration.enabled&.call(shipment.order) && !shipment.pushed?

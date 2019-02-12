@@ -7,5 +7,6 @@
     </legend>
     <dl class="ql-info">
       <%= shipment_order(shipment) %>
+      <%= shipment_order_cancel(shipment) %>
   </fieldset>
 <% end %>

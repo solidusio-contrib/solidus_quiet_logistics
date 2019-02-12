@@ -1,0 +1,5 @@
+<!-- surround "erb[silent]:contains('shipment.ready? && can?(:ship, shipment)')" -->
+
+<% unless SolidusQuietLogistics.configuration.enabled&.call(@order) %>
+  <%= render_original %>
+<% end %>
