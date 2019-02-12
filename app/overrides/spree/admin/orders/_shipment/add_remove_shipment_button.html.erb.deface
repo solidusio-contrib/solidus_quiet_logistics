@@ -1,0 +1,10 @@
+<!-- insert_after "table.shipment" -->
+
+<% if SolidusQuietLogistics.configuration.enabled&.call(@order) %>
+  <% if !shipment.shipped? && !shipment.canceled? && shipment.pushed? %>
+    <% if shipment.ql_cancellation_sent.blank? && shipment.ql_cancellation_date.blank? %>
+      <%= button_to "#{Spree.t('actions.delete')} #{Spree.t(:shipment)}", admin_shipment_path(shipment),
+        method: :delete, remote: true, class: 'btn btn-primary delete-shipment js-delete-shipment-hook' %>
+    <% end %>
+  <% end %>
+<% end %>

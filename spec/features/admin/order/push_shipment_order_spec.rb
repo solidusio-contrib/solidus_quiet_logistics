@@ -6,6 +6,7 @@ RSpec.describe 'Push shipment order', type: :feature, js: true do
   include Warden::Test::Helpers
   include Spree::BaseHelper
 
+  let!(:store) { create(:store) }
   let(:admin_user) { create(:admin_user) }
 
   before do
