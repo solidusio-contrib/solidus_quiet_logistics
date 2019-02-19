@@ -5,8 +5,8 @@ module SolidusQuietLogistics
     class MessageProcessor
       DOCUMENT_CLASSES = {
         'ShipmentOrderResult' => Document::ShipmentOrderResult,
+        'ShipmentOrderCancelReady' => Document::ShipmentOrderCancelReady,
         # 'InventorySummaryReady' => Document::InventorySummaryReady,
-        # 'ShipmentOrderCancelReady' => Document::ShipmentOrderCancelReady,
         # 'RMAResultDocument' => Document::RMAResultDocument,
         # 'ProductConfigurationRequest' => Document::ProductConfigurationRequest,
         # 'PurchaseOrderStartReceipt' => Document::PurchaseOrderStartReceipt,

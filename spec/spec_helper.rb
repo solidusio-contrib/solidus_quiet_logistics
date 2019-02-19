@@ -21,6 +21,7 @@ require 'ffaker'
 require 'aws-sdk'
 require 'selenium-webdriver'
 require 'chromedriver-helper'
+require 'pry'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

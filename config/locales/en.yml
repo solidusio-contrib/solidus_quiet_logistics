@@ -22,3 +22,10 @@ en:
         sent: Cancellation sent at %{cancellation_date}
         cancellation_date: Cancellation received at %{cancellation_date}
         not_sent: Cancellation not sent
+    mailers:
+      shipment_cancellation_failed:
+        title: Shipment cancellation failed
+        subtitle: "We can't cancel your shipment: %{shipment_number}"
+      shipment_successfully_cancelled:
+        title: Shipment successfully cancelled
+        subtitle: "We have cancelled your shipment: %{shipment_number}"

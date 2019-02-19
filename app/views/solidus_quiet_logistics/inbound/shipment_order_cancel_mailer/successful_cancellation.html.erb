@@ -1,0 +1,31 @@
+<table>
+  <tr>
+    <td>
+      <p class="lede">
+        <%= t('.dear_customer') %>
+      </p>
+      <p>
+        <%= t('quiet_logistics.mailers.shipment_successfully_cancelled.subtitle', shipment_number: @shipment.number) %>
+      </p>
+      <p>
+        <%= t('mailers.your_shipment') %>
+      </p>
+      <table>
+        <% @shipment.line_items.each do |item| %>
+          <tr>
+            <td><%= item.variant.sku %></td>
+            <td>
+              <%= item.variant.product.name %>
+              <%= item.variant.options_text -%>
+            </td>
+            <td>(<%= item.quantity %>) @ <%= item.single_money %> = <%= item.display_amount %></td>
+          </tr>
+        <% end %>
+      </table>
+      <p>
+        <%= t('.thanks') %>
+      </p>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>

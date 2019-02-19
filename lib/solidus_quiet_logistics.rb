@@ -4,7 +4,7 @@ require 'deface'
 
 class Configuration
   # QL
-  attr_accessor :enabled, :client_id, :business_unit, :warehouse
+  attr_accessor :enabled, :client_id, :business_unit, :warehouse, :support_email
 
   # AWS
   attr_accessor :aws_region, :aws_access_key_id, :aws_secret_access_key,
