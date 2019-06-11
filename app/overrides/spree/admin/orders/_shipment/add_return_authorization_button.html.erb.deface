@@ -1,0 +1,8 @@
+<!-- insert_bottom "[data-hook='admin_shipment_form']" -->
+
+<% if SolidusQuietLogistics.configuration.enabled&.call(@order) %>
+  <% if @order.completed? && shipment.shipped? %>
+    <%= link_to t('spree.admin.tab.rma'), new_admin_order_shipment_return_authorization_path(order_id: @order, shipment_id: shipment),
+      class: 'btn btn-primary shipment-rma', style: 'margin-top: 20px;' %>
+  <% end %>
+<% end %>
