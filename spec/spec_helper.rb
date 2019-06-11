@@ -19,8 +19,7 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
 require 'aws-sdk'
-require 'selenium-webdriver'
-require 'chromedriver-helper'
+require 'webdrivers'
 require 'pry'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
