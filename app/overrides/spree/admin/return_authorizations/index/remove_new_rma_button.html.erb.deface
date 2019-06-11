@@ -1,0 +1,5 @@
+<!-- surround "erb[silent]:contains('if @order.shipments.any? &:shipped?')" closing_selector "erb[silent]:contains('end')"  -->
+
+<% unless SolidusQuietLogistics.configuration.enabled&.call(@order) %>
+  <%= render_original %>
+<% end %>
