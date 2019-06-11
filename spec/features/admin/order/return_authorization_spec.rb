@@ -9,6 +9,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
 
   let(:order) { create(:order_ready_to_ship) }
   let(:shipment) { order.shipments.first }
+  let(:quiet_logistics_enabled) { true }
 
   before do
     login_as user
@@ -24,19 +25,58 @@ describe 'Create Return Authorization', type: :feature, js: true do
   describe 'The create RMA button on the whole order' do
     before { visit spree.admin_order_return_authorizations_path(order) }
 
-    context 'when the order has QL logistics provider' do
-      let(:quiet_logistics_enabled) { true }
-
+    context 'when quiet_logistics is enabled' do
       it 'is not visible' do
         expect(page).not_to have_selector('[data-hook="toolbar"]')
       end
     end
 
-    context 'when the order has not QL logistics provider' do
+    context 'when quiet_logistics is not enabled' do
       let(:quiet_logistics_enabled) { false }
 
       it 'is visible' do
         expect(page).to have_selector('[data-hook="toolbar"]')
+      end
+    end
+  end
+
+  describe 'RMA actions' do
+    let!(:return_authorization) { create(:return_authorization, order: order) }
+
+    context 'with the button' do
+      before { visit spree.admin_order_return_authorizations_path(order) }
+
+      context 'when quiet_logistics is enabled' do
+        it 'are not visible' do
+          expect(page).not_to have_selector('[data-hook="rma_row"] .actions')
+        end
+      end
+
+      context 'when quiet_logistics is not enabled' do
+        let(:quiet_logistics_enabled) { false }
+
+        it 'are visible' do
+          expect(page).to have_selector('[data-hook="rma_row"] .actions')
+        end
+      end
+    end
+
+    context 'with the URL' do
+      before { visit spree.edit_admin_order_return_authorization_path(order, return_authorization) }
+
+      context 'when quiet_logistics is enabled' do
+        it 'redirects to admin_order_return_authorizations_path and shows error message' do
+          expect(page).not_to have_selector('.return-items-table')
+          expect(page).to have_content(Spree.t('cannot_perform_operation'))
+        end
+      end
+
+      context 'when quiet_logistics is not enabled' do
+        let(:quiet_logistics_enabled) { false }
+
+        it 'shows edit form' do
+          expect(page).to have_selector('.return-items-table')
+        end
       end
     end
   end
