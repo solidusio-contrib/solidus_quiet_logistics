@@ -1,0 +1,9 @@
+<!-- insert_before '[data-hook="admin_shipping_method_form_tracking_url_field"]' -->
+
+<div data-hook="admin_shipping_method_form_priority_field" class="col-10">
+  <%= f.field_container :priority do %>
+    <%= f.label :priority %>
+    <%= f.text_field :priority, class: 'fullwidth' %>
+    <%= error_message_on :shipping_method, :priority %>
+  <% end %>
+</div>

@@ -29,14 +29,14 @@ module SolidusQuietLogistics
                 VIPCustomer: false,
                 StoreDelivery: false,
                 Gift: gift_message.present?,
-                OrderPriority: order_priority,
+                OrderPriority: shipment.shipping_method.priority,
                 OrderDate: shipment.order.created_at.strftime('%Y-%m-%dT%H:%M:%SZ'),
               ) do |order_header|
                 order_header.Comments gift_message if gift_message.present?
 
                 order_header.ShipMode(
-                  Carrier: carrier_name,
-                  ServiceLevel: service_level,
+                  Carrier: shipment.shipping_method.carrier,
+                  ServiceLevel: shipment.shipping_method.service_level,
                 )
 
                 order_header.ShipTo(
@@ -64,6 +64,11 @@ module SolidusQuietLogistics
                 )
 
                 order_header.ShipSpecialService ship_special_service if ship_special_service.present?
+
+                order_header.ValueAddedService(
+                  Service: 'string',
+                  ServiceType: 'string',
+                )
               end
 
               shipment.line_items.each.with_index(1) do |line_item, index|
@@ -83,7 +88,8 @@ module SolidusQuietLogistics
         def process
           super
 
-          shipment.update!(pushed: true)
+          shipment.pushed = true
+          shipment.save!
         end
 
         private
@@ -102,24 +108,8 @@ module SolidusQuietLogistics
           ].join('_').concat('.xml')
         end
 
-        def shipping_attributes
-          SolidusQuietLogistics.configuration.shipping_attributes.call(shipment)
-        end
-
-        def service_level
-          shipping_attributes[:service_level] if shipping_attributes.key? :service_level
-        end
-
-        def carrier_name
-          shipping_attributes[:carrier_name] if shipping_attributes.key? :carrier_name
-        end
-
-        def order_priority
-          shipping_attributes[:order_priority] if shipping_attributes.key? :order_priority
-        end
-
         def ship_special_service
-          shipping_attributes[:ship_special_service] if shipping_attributes.key? :ship_special_service
+          SolidusQuietLogistics.configuration.order_special_service_amount&.call(shipment)
         end
 
         def gift_message

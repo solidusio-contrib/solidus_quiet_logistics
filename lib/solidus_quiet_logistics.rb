@@ -11,8 +11,7 @@ class Configuration
     :aws_inbox_queue_url, :aws_inbox_bucket, :aws_outbox_bucket, :aws_outbox_queue_url
 
   # Custom fields
-  attr_accessor :order_gift_message
-  attr_accessor :shipping_attributes
+  attr_accessor :order_gift_message, :order_special_service_amount
 end
 
 module SolidusQuietLogistics
