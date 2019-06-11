@@ -14,6 +14,10 @@ module SolidusQuietLogistics
         run 'chmod +x bin/ql-poller'
       end
 
+      def copy_initializer
+        template('resource/initializer.rb', 'config/initializers/quiet_logistics.rb')
+      end
+
       def run_migrations
         run_migrations = options[:auto_run_migrations] || ['', 'y', 'Y'].include?(ask('Would you like to run the migrations now? [Y/n]'))
         if run_migrations

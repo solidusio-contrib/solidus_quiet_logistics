@@ -20,56 +20,8 @@ bundle
 bundle exec rails g solidus_quiet_logistics:install
 ```
 
-Configure your application with the Quiet Logistics credentials
-
-```ruby
-# app/config/initializers/quiet_logistics.rb
-
-SolidusQuietLogistics.configure do |config|
-  # You can enable or disable quiet logistics integration for each order
-  config.enabled = -> (order) { true }
-
-  # Quiet Logistics configuration ( provided by QL )
-  config.client_id = 'CLIENT_ID'
-  config.business_unit = 'BUSINESS_UNIT'
-  config.warehouse = 'WAREHOUSE'
-
-  # Quiet Logistics AWS credentials ( provided by QL )
-  config.aws_access_key_id = 'AWS_ACCESS_KEY_ID'
-  config.aws_secret_access_key = 'AWS_SECRET_ACCESS_KEY'
-  config.aws_region = 'AWS_REGION'
-  config.aws_outbox_bucket = 'AWS_OUTBOX_BUCKET'
-  config.aws_outbox_queue_url = 'AWS_OUTBOX_QUEUE_URL'
-  config.aws_inbox_bucket = 'AWS_INBOX_BUCKET'
-  config.aws_inbox_queue_url = 'AWS_INBOX_QUEUE_URL'
-
-  # Order-based customization
-  config.order_special_service_amount = 500
-  config.order_gift_message = -> (order) do
-    order.gift_message if order.gift_message?
-  end
-
-  # Shipment-based customization
-  config.shipping_attributes = -> (shipment) do
-    # Read QL documentation to change the configuration
-    # using your shipment/shipping method
-    case shipment.shipping_method.code
-    when 'Fedex|2 Day'
-      attributes[:service_level] = '2DAY'
-      attributes[:carrier_name] = 'FEDEX'
-      attributes[:order_priority] = 'HIGH'
-    when 'FedEx|Ground Home'
-      attributes[:service_level] = 'GROUND'
-      attributes[:carrier_name] = 'FEDEX'
-      attributes[:order_priority] = 'STANDARD'
-    else
-      raise ArgumentError, 'Unknown shipping method!'
-    end
-
-    attributes
-  end
-end
-```
+Configure your application with the Quiet Logistics credentials changing
+the `app/config/initializers/quiet_logistics.rb` added by the generator.
 
 Testing
 -------
