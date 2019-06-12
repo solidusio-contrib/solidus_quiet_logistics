@@ -75,8 +75,8 @@ module SolidusQuietLogistics
                 ship_order.OrderDetails(
                   Line: index,
                   ItemNumber: line_item.sku,
-                  QuantityOrdered: line_item.quantity,
-                  QuantityToShip: line_item.quantity,
+                  QuantityOrdered: quantity(line_item),
+                  QuantityToShip: quantity(line_item),
                   Price: line_item.price,
                   UOM: 'EA',
                 )
@@ -106,6 +106,10 @@ module SolidusQuietLogistics
             shipment.order.created_at.strftime('%Y%m%d'),
             shipment.order.created_at.strftime('%H%M%S'),
           ].join('_').concat('.xml')
+        end
+
+        def quantity(line_item)
+          @shipment.inventory_units.where(variant_id: line_item.variant_id).count
         end
 
         def ship_special_service

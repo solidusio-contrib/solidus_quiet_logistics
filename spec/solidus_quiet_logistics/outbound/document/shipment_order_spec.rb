@@ -15,6 +15,12 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::ShipmentOrder do
     let(:ql_client_id) { SolidusQuietLogistics.configuration.client_id }
     let(:ql_business_unit) { SolidusQuietLogistics.configuration.business_unit }
 
+    let(:code) { 'Fedex|Ground home' }
+    let(:carrier_name) { 'FEDEX' }
+    let(:service_level) { 'GROUND' }
+    let(:order_priority) { 'STANDARD' }
+    let(:gift_message) { nil }
+
     let(:shipping_method) do
       create(
         :shipping_method,
@@ -24,17 +30,12 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::ShipmentOrder do
       )
     end
 
-    let(:code) { 'Fedex|Ground home' }
-    let(:carrier_name) { 'FEDEX' }
-    let(:service_level) { 'GROUND' }
-    let(:order_priority) { 'STANDARD' }
-    let(:gift_message) { nil }
-
     let(:order) do
       create(
-        :order_with_line_items,
+        :completed_order_with_totals,
         line_items_count: 2,
         shipping_method: shipping_method,
+        line_items_attributes: [{ quantity: 5 }] * 2,
       )
     end
 
@@ -59,11 +60,16 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::ShipmentOrder do
             <BillTo Contact="#{bill_address.full_name}" Address1="#{bill_address.address1}" Address2="#{bill_address.address2}" City="#{bill_address.city}" State="#{bill_address.state.name}" PostalCode="#{bill_address.zipcode}" Country="#{bill_address.country.iso}" Phone="#{bill_address.phone}" Email="#{order.email}"/>
             <ValueAddedService Service="string" ServiceType="string"/>
           </OrderHeader>
-          <OrderDetails Line="1" ItemNumber="#{first_line_item.sku}" QuantityOrdered="#{first_line_item.quantity}" QuantityToShip="#{first_line_item.quantity}" Price="#{first_line_item.price}" UOM="EA"/>
-          <OrderDetails Line="2" ItemNumber="#{second_line_item.sku}" QuantityOrdered="#{second_line_item.quantity}" QuantityToShip="#{second_line_item.quantity}" Price="#{second_line_item.price}" UOM="EA"/>
+          <OrderDetails Line="1" ItemNumber="#{first_line_item.sku}" QuantityOrdered="5" QuantityToShip="5" Price="#{first_line_item.price}" UOM="EA"/>
+          <OrderDetails Line="2" ItemNumber="#{second_line_item.sku}" QuantityOrdered="5" QuantityToShip="5" Price="#{second_line_item.price}" UOM="EA"/>
         </ShipOrderDocument>
       XML
     }
+
+    before do
+      shipment.line_items.each { |line_item| line_item.update!(quantity: 10) }
+      shipment.inventory_units.last(10).each(&:destroy)
+    end
 
     context 'with gift message' do
       let(:gift_message) { 'Happy birthday' }
