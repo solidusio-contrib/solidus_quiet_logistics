@@ -1,0 +1,3 @@
+<!-- replace_contents "erb[silent]:contains('editable = inventory_unit.shipped? && !inventory_unit.exchange_requested? && allow_return_item_changes && return_item.reimbursement.nil?')"  -->
+
+editable = inventory_unit.shipped? && !inventory_unit.exchange_requested? && allow_return_item_changes && return_item.reimbursement.nil? && !inventory_unit.ql_rma_sent.present?

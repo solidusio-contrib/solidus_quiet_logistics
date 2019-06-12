@@ -1,0 +1,5 @@
+<!-- surround "[data-hook='rma_row'] .actions"  -->
+
+<% unless SolidusQuietLogistics.configuration.enabled&.call(@order) %>
+  <%= render_original %>
+<% end %>
