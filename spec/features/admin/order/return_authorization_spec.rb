@@ -11,11 +11,23 @@ describe 'Create Return Authorization', type: :feature, js: true do
   let(:shipment) { order.shipments.first }
   let(:quiet_logistics_enabled) { true }
 
+  def fill_in_rma(stock_location)
+    expect(page).to have_css '[data-hook="admin_return_authorization_form_fields"]'
+
+    find('#select-all').set true
+    find('#return_authorization_stock_location_id').find(:xpath, 'option[2]').select_option
+
+    click_button 'Create'
+  end
+
   before do
     login_as user
 
     create(:shipment, order: order, stock_location: shipment.stock_location)
-    order.reload.shipments.each(&:ship)
+    order.reload.shipments.each do |shipment|
+      shipment.update!(state: 'ready')
+      shipment.reload.ship!
+    end
 
     allow(SolidusQuietLogistics.configuration)
       .to receive(:enabled)
@@ -92,6 +104,10 @@ describe 'Create Return Authorization', type: :feature, js: true do
 
         expect(page).to have_selector('.return-items-table tbody tr',
           count: shipment.inventory_units.count)
+        expect(SolidusQuietLogistics::Outbound::PushRMADocumentJob).to receive(:perform_later)
+
+        fill_in_rma(shipment.stock_location)
+      end
       end
     end
 
