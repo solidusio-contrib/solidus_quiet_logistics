@@ -108,6 +108,25 @@ describe 'Create Return Authorization', type: :feature, js: true do
 
         fill_in_rma(shipment.stock_location)
       end
+
+      context 'and some shipment inventory units are already pushed to QL' do
+        let!(:return_item) { create(:return_item, inventory_unit: inventory_unit, return_authorization: return_authorization) }
+
+        let(:return_authorization) { create(:return_authorization, order: order) }
+
+        let(:inventory_unit) do
+          order.inventory_units.first.tap do |inventory_unit|
+            inventory_unit.update(ql_rma_sent: Time.now)
+          end
+        end
+
+        it 'shows the pushed inventory units as not editable' do
+          find_all('.shipment-rma').first.click
+
+          within '.inventory-unit-checkbox' do
+            expect(page).not_to have_selector('input.add-item')
+          end
+        end
       end
     end
 
