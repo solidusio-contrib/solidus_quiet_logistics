@@ -33,7 +33,7 @@ RSpec.shared_context 'quiet_logistics_inbound_integration' do
     ])
 
     allow(SolidusQuietLogistics::Aws::Clients.s3).to receive(:get_object)
-      .with(a_hash_including(bucket: SolidusQuietLogistics.configuration.aws_input_bucket))
+      .with(a_hash_including(bucket: SolidusQuietLogistics.configuration.aws_inbox_bucket))
       .and_return(OpenStruct.new(
         body: OpenStruct.new(read: read_ql_document(document_type)),
       ))

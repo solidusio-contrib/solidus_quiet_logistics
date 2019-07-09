@@ -7,7 +7,7 @@ module SolidusQuietLogistics
         'ShipmentOrderResult' => Document::ShipmentOrderResult,
         'ShipmentOrderCancelReady' => Document::ShipmentOrderCancelReady,
         'RMAResultDocument' => Document::RMAResultDocument,
-        # 'InventorySummaryReady' => Document::InventorySummaryReady,
+        'InventorySummaryReady' => Document::InventorySummaryReady,
         # 'ProductConfigurationRequest' => Document::ProductConfigurationRequest,
         # 'PurchaseOrderStartReceipt' => Document::PurchaseOrderStartReceipt,
         # 'PurchaseOrderReceipt' => Document::PurchaseOrderReceipt,

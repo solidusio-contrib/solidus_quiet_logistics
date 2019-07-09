@@ -9,6 +9,8 @@ SolidusQuietLogistics.configure do |config|
   config.aws_region = 'aws_region'
   config.aws_outbox_queue_url = 'aws_outbox_queue_url'
   config.aws_outbox_bucket = 'aws_outbox_bucket'
+  config.aws_inbox_queue_url = 'aws_inbox_queue_url'
+  config.aws_inbox_bucket = 'aws_inbox_bucket'
 
   config.rma_correct_product_statuses = ['GOOD', 'DAMAGED']
 end
