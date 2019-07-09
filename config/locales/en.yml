@@ -23,6 +23,22 @@ en:
         cancellation_date: Cancellation received at %{cancellation_date}
         not_sent: Cancellation not sent
     mailers:
+      failed_refund_to_customer:
+        subject: "Incorrect return item: Order #%{order_number}"
+        title: Incorrect Return Item
+        content: |
+          There was a problem with your return request for: $%{refund_amount}.
+        subcontent: |
+          Please contact our support team clicking the button below.
+        return_items: 'Incorrect return items:'
+      failed_refund_to_support:
+        subject: "Incorrect return item: Order #%{order_number}, RMA #%{return_authorization_number}"
+        title: Incorrect Return Item
+        content: |
+          There was a problem with a return request for: $%{refund_amount} submitted by %{customer_email}.
+        subcontent: |
+          Customer attempted to return the items listed below, but Quiet marked that they received a different item.
+        return_items: 'Incorrect return items:'
       shipment_cancellation_failed:
         title: Shipment cancellation failed
         subtitle: "We can't cancel your shipment: %{shipment_number}"

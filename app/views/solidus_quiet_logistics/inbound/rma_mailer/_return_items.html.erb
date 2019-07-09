@@ -1,0 +1,13 @@
+<table>
+  <% return_items.each do |return_item| %>
+    <tr>
+      <td><%= return_item.return_authorization.number %></td>
+      <td>
+        <% if return_item.variant.images.any? && return_item.variant.images.first.attachment.present? %>
+          <img src="<%= return_item.variant.images.first.attachment(:mini) %>" />
+        <% end %>
+      </td>
+      <td><%= return_item.inventory_unit.line_item.quantity %></td>
+    </tr>
+  <% end %>
+</table>

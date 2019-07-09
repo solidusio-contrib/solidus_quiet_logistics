@@ -12,6 +12,9 @@ class Configuration
 
   # Custom fields
   attr_accessor :order_gift_message, :order_special_service_amount
+
+  # Return authorization
+  attr_accessor :rma_correct_product_statuses
 end
 
 module SolidusQuietLogistics

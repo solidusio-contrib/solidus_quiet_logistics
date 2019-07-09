@@ -6,8 +6,8 @@ module SolidusQuietLogistics
       DOCUMENT_CLASSES = {
         'ShipmentOrderResult' => Document::ShipmentOrderResult,
         'ShipmentOrderCancelReady' => Document::ShipmentOrderCancelReady,
+        'RMAResultDocument' => Document::RMAResultDocument,
         # 'InventorySummaryReady' => Document::InventorySummaryReady,
-        # 'RMAResultDocument' => Document::RMAResultDocument,
         # 'ProductConfigurationRequest' => Document::ProductConfigurationRequest,
         # 'PurchaseOrderStartReceipt' => Document::PurchaseOrderStartReceipt,
         # 'PurchaseOrderReceipt' => Document::PurchaseOrderReceipt,
