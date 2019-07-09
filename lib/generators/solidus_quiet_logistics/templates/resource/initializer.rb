@@ -1,5 +1,6 @@
 SolidusQuietLogistics.configure do |config|
   config.enabled = -> (order) { true }
+  config.support_email = 'support@example.com'
 
   # Quiet Logistics configuration ( provided by QL )
   config.client_id = 'CLIENT_ID'
@@ -26,4 +27,11 @@ SolidusQuietLogistics.configure do |config|
   # config.order_gift_message = -> (order) do
   #   order.gift_message if order.gift_message?
   # end
+
+  # Return authorization
+  # Default rma correct product statuses.
+  # An RMA will be considered correct if the product status is GOOD or
+  # DAMAGED and incorrect if the product status is INCORRECT.
+  # Here you can change the default behaviour
+  config.rma_correct_product_statuses = ['GOOD', 'DAMAGED']
 end

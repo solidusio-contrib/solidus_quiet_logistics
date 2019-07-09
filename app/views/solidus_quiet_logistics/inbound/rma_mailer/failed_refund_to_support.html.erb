@@ -1,0 +1,24 @@
+<table>
+  <tr>
+    <td>
+      <p class="lede">
+        <%= t('.dear_customer') %>
+      </p>
+      <p>
+        <%= t('quiet_logistics.mailers.failed_refund_to_support.title') %>
+      </p>
+      <p>
+        <span><%= t('mailers.first_name.failed_refund_to_support.content',
+          refund_amount: @return_items.sum(&:amount),
+          customer_email: @return_authorization.order.email) %>
+        </span>
+        <span><%= t('quiet_logistics.mailers.failed_refund_to_support.subcontent') %></span>
+      </p>
+      <%= render 'return_items', return_items: @return_items %>
+      <p>
+        <%= t('.thanks') %>
+      </p>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>

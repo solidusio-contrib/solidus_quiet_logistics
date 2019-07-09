@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RMAResultDocument
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://schemas.quietlogistics.com/V2/RMAResultDocument.xsd">
+  <RMAResult ClientID="QUIET" BusinessUnit="QUIET" RMANumber="RA740246728" ReceiptDate="2018-09-24T12:18:48.1294776Z" Warehouse="CORP1">
+    <Line LineNo="1" ItemNumber="050-00400" ReturnUOM="EA" Quantity="1" ProductStatus="GOOD" Notes="This is a note" OrderNumber="R123456789-1" />
+    <Line LineNo="2" ItemNumber="050-00400" ReturnUOM="EA" Quantity="2" ProductStatus="DAMAGED" Notes="" OrderNumber="R123456789-1" />
+    <Line LineNo="3" ItemNumber="050-00400" ReturnUOM="EA" Quantity="1" ProductStatus="INCORRECT" Notes="" OrderNumber="R123456789-1" />
+  </RMAResult>
+</RMAResultDocument>
