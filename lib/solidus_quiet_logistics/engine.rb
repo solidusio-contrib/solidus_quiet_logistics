@@ -10,6 +10,7 @@ module SolidusQuietLogistics
     end
 
     config.autoload_paths += %W(#{config.root}/lib)
+    paths['app/controllers'] << 'lib/solidus_quiet_logistics'
 
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/decorators/**/*.rb')) do |c|
