@@ -22,7 +22,15 @@ module SolidusQuietLogistics
         def process(message_body)
           message = SolidusQuietLogistics::Inbound::Message.from_xml(message_body)
 
+          ql_message = QlMessage.create!(
+            document_name: message.document_name,
+            document_type: message.document_type,
+            document_body: message_body,
+          )
+
           document_class_for(message).from_message(message).process
+
+          ql_message.update!(success: true, processed_at: Time.now)
         end
 
         private
