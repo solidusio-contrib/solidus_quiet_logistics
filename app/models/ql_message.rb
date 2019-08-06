@@ -1,0 +1,2 @@
+class QlMessage < ApplicationRecord
+end
