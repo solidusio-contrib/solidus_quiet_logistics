@@ -39,6 +39,12 @@ RSpec.describe SolidusQuietLogistics::Inbound::MessageProcessor do
 
       subject.process(message_body)
     end
+
+    it 'saves ql message' do
+      subject.process(message_body)
+
+      expect(QlMessage.count).to eq(1)
+    end
   end
 
   context 'with an unhandled message' do
