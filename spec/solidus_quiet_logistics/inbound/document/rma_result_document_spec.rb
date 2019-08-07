@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
+RSpec.describe SolidusQuietLogistics::Inbound::Document::RmaResultDocument do
   let(:correct_rma_dict) do
     {
       line: '1',
@@ -64,9 +64,9 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
       described_class.new(
         rma_number: return_authorization_number,
         rma_items: [
-          described_class::RMAItem.new(correct_rma_dict),
-          described_class::RMAItem.new(damaged_rma_dict),
-          described_class::RMAItem.new(incorrect_rma_dict),
+          described_class::RmaItem.new(correct_rma_dict),
+          described_class::RmaItem.new(damaged_rma_dict),
+          described_class::RmaItem.new(incorrect_rma_dict),
         ],
       )
     end
@@ -86,10 +86,10 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
     let(:rma_document_to_suppport_mailer) { instance_double('ActionMailer::Delivery') }
 
     before do
-      allow(SolidusQuietLogistics::Inbound::RMAMailer).to receive(:failed_refund_to_customer)
+      allow(SolidusQuietLogistics::Inbound::RmaMailer).to receive(:failed_refund_to_customer)
         .and_return(rma_document_to_customer_mailer)
 
-      allow(SolidusQuietLogistics::Inbound::RMAMailer).to receive(:failed_refund_to_support)
+      allow(SolidusQuietLogistics::Inbound::RmaMailer).to receive(:failed_refund_to_support)
         .and_return(rma_document_to_suppport_mailer)
 
       return_authorization.reload.return_items.map do |return_item|
@@ -138,8 +138,8 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
         described_class.new(
           rma_number: return_authorization_number,
           rma_items: [
-            described_class::RMAItem.new(correct_rma_dict),
-            described_class::RMAItem.new(damaged_rma_dict),
+            described_class::RmaItem.new(correct_rma_dict),
+            described_class::RmaItem.new(damaged_rma_dict),
           ],
         )
       end
@@ -161,7 +161,7 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
         described_class.new(
           rma_number: return_authorization_number,
           rma_items: [
-            described_class::RMAItem.new(incorrect_rma_dict),
+            described_class::RmaItem.new(incorrect_rma_dict),
           ],
         )
       end

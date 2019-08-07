@@ -1,6 +1,12 @@
 require 'solidus_core'
-require 'solidus_quiet_logistics/engine'
 require 'deface'
+require 'zeitwerk'
+require 'aws-sdk'
+
+loader = Zeitwerk::Loader.for_gem
+loader.ignore("#{__dir__}/solidus_quiet_logistics/factories.rb")
+loader.ignore("#{__dir__}/generators")
+loader.setup
 
 class Configuration
   # QL
@@ -26,3 +32,5 @@ module SolidusQuietLogistics
     yield configuration
   end
 end
+
+loader.eager_load

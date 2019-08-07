@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusQuietLogistics::Inbound::RMAMailer, type: :mailer do
+RSpec.describe SolidusQuietLogistics::Inbound::RmaMailer, type: :mailer do
   let(:support_email) { 'support@example.com' }
 
   let(:return_authorization) { create(:return_authorization) }
