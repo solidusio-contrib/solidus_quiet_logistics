@@ -39,7 +39,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::RMADocument do
     let!(:first_return_item) do
       create(
         :return_item,
-        inventory_unit: create(:inventory_unit, variant: first_variant),
+        inventory_unit: create(:inventory_unit, order: create(:order), variant: first_variant),
         return_authorization: return_authorization,
         return_reason: return_reason,
       )
@@ -48,7 +48,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::RMADocument do
     let!(:second_return_item) do
       create(
         :return_item,
-        inventory_unit: create(:inventory_unit, variant: first_variant),
+        inventory_unit: create(:inventory_unit, order: create(:order), variant: first_variant),
         return_authorization: return_authorization,
         return_reason: return_reason,
       )
@@ -57,7 +57,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::RMADocument do
     let!(:third_return_item) do
       create(
         :return_item,
-        inventory_unit: create(:inventory_unit, variant: first_variant),
+        inventory_unit: create(:inventory_unit, order: create(:order), variant: first_variant),
         return_authorization: return_authorization,
         return_reason: create(:return_reason),
       )
@@ -66,7 +66,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::RMADocument do
     let!(:fourth_return_item) do
       create(
         :return_item,
-        inventory_unit: create(:inventory_unit, variant: second_variant),
+        inventory_unit: create(:inventory_unit, order: create(:order), variant: second_variant),
         return_authorization: return_authorization,
         return_reason: return_reason,
       )

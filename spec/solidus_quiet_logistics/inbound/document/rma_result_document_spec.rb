@@ -78,9 +78,24 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
 
     let(:variant) { create(:variant, sku: '050-00400') }
 
-    let!(:good_return_item) { create(:return_item, return_authorization: return_authorization) }
-    let!(:damaged_return_item) { create(:return_item, return_authorization: return_authorization) }
-    let!(:incorrect_return_item) { create(:return_item, return_authorization: return_authorization) }
+    let!(:good_return_item) do
+      create(:return_item,
+        inventory_unit: create(:inventory_unit, order: create(:order), state: 'shipped'),
+        return_authorization: return_authorization,
+      )
+    end
+    let!(:damaged_return_item) do
+      create(:return_item,
+        inventory_unit: create(:inventory_unit, order: create(:order), state: 'shipped'),
+        return_authorization: return_authorization,
+      )
+    end
+    let!(:incorrect_return_item) do
+      create(:return_item,
+        inventory_unit: create(:inventory_unit, order: create(:order), state: 'shipped'),
+        return_authorization: return_authorization,
+      )
+    end
 
     let(:rma_document_to_customer_mailer) { instance_double('ActionMailer::Delivery') }
     let(:rma_document_to_suppport_mailer) { instance_double('ActionMailer::Delivery') }
@@ -99,6 +114,7 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
     end
 
     it 'refunds the correct return items and sends an email to the support for the incorrect return items' do
+
       expect(rma_document_to_customer_mailer).to receive(:deliver_later)
       expect(rma_document_to_suppport_mailer).to receive(:deliver_later)
 
