@@ -4,3 +4,4 @@ class AddQlRMAReceivedDateToSpreeInventoryUnit < SolidusSupport::Migration[4.2]
   end
 end
 
+AddQlRmaReceivedDateToSpreeInventoryUnit = AddQlRMAReceivedDateToSpreeInventoryUnit

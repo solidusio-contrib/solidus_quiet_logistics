@@ -4,3 +4,4 @@ class AddQlRMASentTimestampToSpreeInventoryUnit < SolidusSupport::Migration[4.2]
   end
 end
 
+AddQlRmaSentTimestampToSpreeInventoryUnit = AddQlRMASentTimestampToSpreeInventoryUnit
