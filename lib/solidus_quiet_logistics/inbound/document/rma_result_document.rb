@@ -93,11 +93,17 @@ module SolidusQuietLogistics
           end
 
           begin
+            return_args = if Spree.solidus_gem_version <= Gem::Version.new('2.8.0')
+              []
+            else
+              [{ created_by: return_authorization.order.user }]
+            end
+
             Spree::Reimbursement.create!(
               order: return_authorization.order,
               customer_return: customer_return,
               return_items: return_items,
-            ).return_all(created_by: return_authorization.order.user)
+            ).return_all(*return_args)
           rescue Spree::Reimbursement::IncompleteReimbursementError => e
             Rails.logger.info e.message
           end
