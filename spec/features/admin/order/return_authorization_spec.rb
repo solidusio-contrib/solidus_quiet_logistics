@@ -116,7 +116,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
 
         let(:inventory_unit) do
           order.inventory_units.first.tap do |inventory_unit|
-            inventory_unit.update(ql_rma_sent: Time.now)
+            inventory_unit.update!(ql_rma_sent: Time.now)
           end
         end
 
