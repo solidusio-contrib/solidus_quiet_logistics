@@ -1,4 +1,4 @@
-class AddPushedToSpreeReturnAuthorization < ActiveRecord::Migration[5.2]
+class AddPushedToSpreeReturnAuthorization < SolidusSupport::Migration[4.2]
   def change
     add_column :spree_return_authorizations, :pushed, :boolean, default: false
 
