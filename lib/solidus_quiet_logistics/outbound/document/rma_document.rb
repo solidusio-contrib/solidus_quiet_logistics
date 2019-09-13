@@ -3,7 +3,7 @@
 module SolidusQuietLogistics
   module Outbound
     class Document < SolidusQuietLogistics::Document
-      class RmaDocument < SolidusQuietLogistics::Outbound::Document
+      class RMADocument < SolidusQuietLogistics::Outbound::Document
         attr_reader :return_authorization
 
         class << self

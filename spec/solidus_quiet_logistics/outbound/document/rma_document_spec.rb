@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusQuietLogistics::Outbound::Document::RmaDocument do
+RSpec.describe SolidusQuietLogistics::Outbound::Document::RMADocument do
   include_context 'quiet_logistics_outbound_document'
 
   subject(:document) { described_class.new(return_authorization) }

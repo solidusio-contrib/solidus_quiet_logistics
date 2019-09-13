@@ -1,12 +1,42 @@
 require 'solidus_core'
 require 'deface'
-require 'zeitwerk'
-require 'aws-sdk'
 
-loader = Zeitwerk::Loader.for_gem
-loader.ignore("#{__dir__}/solidus_quiet_logistics/factories.rb")
-loader.ignore("#{__dir__}/generators")
-loader.setup
+require 'solidus_quiet_logistics/version'
+
+require 'solidus_quiet_logistics/document'
+require 'solidus_quiet_logistics/message'
+
+require 'solidus_quiet_logistics/aws/clients'
+require 'solidus_quiet_logistics/aws/credentials'
+
+require 'solidus_quiet_logistics/error/service_error'
+require 'solidus_quiet_logistics/error/invalid_message_error'
+
+require 'solidus_quiet_logistics/inbound/error/service_error'
+require 'solidus_quiet_logistics/inbound/error/unhandled_message_error'
+
+require 'solidus_quiet_logistics/inbound/document'
+require 'solidus_quiet_logistics/inbound/document/inventory_summary_ready'
+require 'solidus_quiet_logistics/inbound/document/rma_result_document'
+require 'solidus_quiet_logistics/inbound/document/shipment_order_cancel_ready'
+require 'solidus_quiet_logistics/inbound/document/shipment_order_result'
+
+require 'solidus_quiet_logistics/inbound/message'
+require 'solidus_quiet_logistics/inbound/message_processor'
+require 'solidus_quiet_logistics/inbound/queue_poller'
+
+require 'solidus_quiet_logistics/outbound/error/service_error'
+require 'solidus_quiet_logistics/outbound/error/already_pushed_error'
+
+require 'solidus_quiet_logistics/outbound/document'
+require 'solidus_quiet_logistics/outbound/document/inventory_summary_request'
+require 'solidus_quiet_logistics/outbound/document/rma_document'
+require 'solidus_quiet_logistics/outbound/document/shipment_order'
+require 'solidus_quiet_logistics/outbound/document/shipment_order_cancel'
+
+require 'solidus_quiet_logistics/outbound/message'
+
+require 'solidus_quiet_logistics/engine'
 
 class Configuration
   # QL
@@ -32,5 +62,3 @@ module SolidusQuietLogistics
     yield configuration
   end
 end
-
-loader.eager_load

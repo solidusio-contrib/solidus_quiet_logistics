@@ -104,7 +104,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
 
         expect(page).to have_selector('.return-items-table tbody tr',
           count: shipment.inventory_units.count)
-        expect(SolidusQuietLogistics::Outbound::PushRmaDocumentJob).to receive(:perform_later)
+        expect(SolidusQuietLogistics::Outbound::PushRMADocumentJob).to receive(:perform_later)
 
         fill_in_rma(shipment.stock_location)
       end

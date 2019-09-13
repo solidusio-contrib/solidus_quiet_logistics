@@ -9,8 +9,6 @@ module SolidusQuietLogistics
       g.test_framework :rspec
     end
 
-    config.autoload_paths += %W(#{config.root}/lib)
-
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/decorators/**/*.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)

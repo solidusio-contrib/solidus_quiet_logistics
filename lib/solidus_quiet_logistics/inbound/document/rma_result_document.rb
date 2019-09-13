@@ -3,8 +3,8 @@
 module SolidusQuietLogistics
   module Inbound
     class Document < SolidusQuietLogistics::Document
-      class RmaResultDocument < SolidusQuietLogistics::Inbound::Document
-        class RmaItem
+      class RMAResultDocument < SolidusQuietLogistics::Inbound::Document
+        class RMAItem
           attr_reader :line, :number, :quantity, :product_status, :order_number,
             :notes
 
@@ -41,7 +41,7 @@ module SolidusQuietLogistics
         class << self
           def from_xml(body)
             nokogiri = Nokogiri::XML(body)
-            items = nokogiri.css('Line').map { |line| RmaItem.from_element(line) }
+            items = nokogiri.css('Line').map { |line| RMAItem.from_element(line) }
 
             new(
               rma_number: nokogiri.xpath('//@RMANumber').first.text,
@@ -111,14 +111,14 @@ module SolidusQuietLogistics
             return_item.inventory_unit.update!(ql_rma_sent: nil)
           end
 
-          SolidusQuietLogistics::Inbound::RmaMailer
+          SolidusQuietLogistics::Inbound::RMAMailer
             .failed_refund_to_customer(
               return_authorization,
               return_items,
             )
             .deliver_later
 
-          SolidusQuietLogistics::Inbound::RmaMailer
+          SolidusQuietLogistics::Inbound::RMAMailer
             .failed_refund_to_support(
               return_authorization,
               return_items,
