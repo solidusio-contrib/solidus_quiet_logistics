@@ -9,13 +9,11 @@ RSpec.describe SolidusQuietLogistics::Inbound::RMAMailer, type: :mailer do
   let(:return_items) do
     [
       create(:return_item,
-        inventory_unit: create(:inventory_unit, order: create(:order)),
-        return_authorization: return_authorization,
-      ),
+             inventory_unit: create(:inventory_unit, order: create(:order)),
+             return_authorization: return_authorization,),
       create(:return_item,
-        inventory_unit: create(:inventory_unit, order: create(:order)),
-        return_authorization: return_authorization,
-      ),
+             inventory_unit: create(:inventory_unit, order: create(:order)),
+             return_authorization: return_authorization,),
     ]
   end
 

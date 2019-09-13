@@ -127,8 +127,8 @@ module SolidusQuietLogistics
 
           orders.each do |order|
             Spree::Config.carton_shipped_email_class
-              .multi_shipped_email(order: order, cartons: shipped_cartons)
-              .deliver_later
+                         .multi_shipped_email(order: order, cartons: shipped_cartons)
+                         .deliver_later
           end
         end
       end

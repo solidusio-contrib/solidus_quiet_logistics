@@ -6,7 +6,7 @@ module SolidusQuietLogistics
       class RMAResultDocument < SolidusQuietLogistics::Inbound::Document
         class RMAItem
           attr_reader :line, :number, :quantity, :product_status, :order_number,
-            :notes
+                      :notes
 
           class << self
             def from_element(line)
@@ -22,7 +22,7 @@ module SolidusQuietLogistics
           end
 
           def initialize(line:, number:, quantity:, product_status:,
-            order_number:, notes: '')
+                         order_number:, notes: '')
 
             @line = line
             @number = number
@@ -72,9 +72,9 @@ module SolidusQuietLogistics
         def return_authorization_items(return_items)
           return_items.flat_map do |item|
             return_authorization.return_items
-              .where(acceptance_status: 'pending')
-              .joins(inventory_unit: :variant)
-              .where(spree_variants: { sku: item.number }).limit(item.quantity)
+                                .where(acceptance_status: 'pending')
+                                .joins(inventory_unit: :variant)
+                                .where(spree_variants: { sku: item.number }).limit(item.quantity)
           end
         end
 

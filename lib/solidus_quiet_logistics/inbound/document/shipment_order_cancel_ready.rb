@@ -17,7 +17,7 @@ module SolidusQuietLogistics
         end
 
         attr_reader :shipment_number, :cancellation_status, :date_cancelled,
-          :shipment
+                    :shipment
 
         def initialize(shipment_number:, cancellation_status:, date_cancelled: Time.now)
           @shipment_number = shipment_number

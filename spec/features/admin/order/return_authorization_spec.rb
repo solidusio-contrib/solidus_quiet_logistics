@@ -11,7 +11,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
   let(:shipment) { order.shipments.first }
   let(:quiet_logistics_enabled) { true }
 
-  def fill_in_rma(stock_location)
+  def fill_in_rma(_stock_location)
     expect(page).to have_css '[data-hook="admin_return_authorization_form_fields"]'
 
     find('#select-all').set true
@@ -31,7 +31,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
 
     allow(SolidusQuietLogistics.configuration)
       .to receive(:enabled)
-      .and_return(proc { |order| quiet_logistics_enabled })
+      .and_return(proc { |_order| quiet_logistics_enabled })
   end
 
   describe 'The create RMA button on the whole order' do
@@ -103,7 +103,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
         find_all('.shipment-rma').first.click
 
         expect(page).to have_selector('.return-items-table tbody tr',
-          count: shipment.inventory_units.count)
+                                      count: shipment.inventory_units.count)
         expect(SolidusQuietLogistics::Outbound::PushRMADocumentJob).to receive(:perform_later)
 
         fill_in_rma(shipment.stock_location)

@@ -43,7 +43,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::Message do
       message.send_to_sqs
 
       expect(sqs_client.sent_messages).to match_array([
-        queue_url:  SolidusQuietLogistics.configuration.aws_outbox_queue_url,
+        queue_url: SolidusQuietLogistics.configuration.aws_outbox_queue_url,
         message_body: an_instance_of(String),
       ])
     end

@@ -77,7 +77,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::ShipmentOrder do
       before do
         allow(SolidusQuietLogistics.configuration)
           .to receive(:order_gift_message)
-          .and_return(proc { |order| gift_message })
+          .and_return(proc { |_order| gift_message })
       end
 
       it 'checks XML string is correct' do
@@ -87,7 +87,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::ShipmentOrder do
 
     context 'without gift message' do
       it 'checks XML string is correct' do
-        expect(document).to eq(xml.gsub(/\s{4}<Comments><\/Comments>\n/, ""))
+        expect(document).to eq(xml.gsub(%r{\s{4}<Comments></Comments>\n}, ""))
       end
     end
 
@@ -95,7 +95,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::ShipmentOrder do
       before do
         allow(SolidusQuietLogistics.configuration)
           .to receive(:order_special_service_amount)
-          .and_return(proc { |shipment| 'SIGNATURE' })
+          .and_return(proc { |_shipment| 'SIGNATURE' })
       end
 
       it 'XML document contains the special service node' do

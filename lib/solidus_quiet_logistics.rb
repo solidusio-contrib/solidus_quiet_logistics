@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'solidus_core'
 require 'deface'
 
@@ -44,7 +46,7 @@ class Configuration
 
   # AWS
   attr_accessor :aws_region, :aws_access_key_id, :aws_secret_access_key,
-    :aws_inbox_queue_url, :aws_inbox_bucket, :aws_outbox_bucket, :aws_outbox_queue_url
+                :aws_inbox_queue_url, :aws_inbox_bucket, :aws_outbox_bucket, :aws_outbox_queue_url
 
   # Custom fields
   attr_accessor :order_gift_message, :order_special_service_amount
