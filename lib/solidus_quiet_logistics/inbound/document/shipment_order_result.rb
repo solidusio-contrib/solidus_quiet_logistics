@@ -109,7 +109,7 @@ module SolidusQuietLogistics
               )
             end
 
-            shipment.update_attributes!(tracking: cartons.map(&:tracking_number).join(','))
+            shipment.update!(tracking: cartons.map(&:tracking_number).join(','))
 
             # Needed in order to update the order's shipment_state. Otherwise, the updater is called
             # with a collection of old shipments whose states are still "pending".

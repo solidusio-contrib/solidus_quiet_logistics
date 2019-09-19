@@ -105,8 +105,8 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
         .and_return(rma_document_to_suppport_mailer)
 
       return_authorization.reload.return_items.map do |return_item|
-        return_item.inventory_unit.update_attributes(variant: variant)
-        return_item.shipment.update_attributes(order: order)
+        return_item.inventory_unit.update(variant: variant)
+        return_item.shipment.update(order: order)
       end
     end
 
