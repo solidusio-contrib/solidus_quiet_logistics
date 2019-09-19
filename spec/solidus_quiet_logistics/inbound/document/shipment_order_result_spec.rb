@@ -116,7 +116,7 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::ShipmentOrderResult do
             .with(spree_variants: { sku: line_item2.variant.sku })
             .and_return([inventory_unit2, inventory_unit3])
 
-          allow(shipment).to receive(:update_attributes!)
+          allow(shipment).to receive(:update!)
 
           allow(shipment.order).to receive(:reload)
             .and_return(shipment.order)
@@ -156,7 +156,7 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::ShipmentOrderResult do
         it 'updates the tracking number' do
           subject.process
 
-          expect(shipment).to have_received(:update_attributes!)
+          expect(shipment).to have_received(:update!)
             .with(tracking: cartons.map(&:tracking_number).join(','))
             .once
         end
@@ -191,8 +191,20 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::ShipmentOrderResult do
           ]
         end
 
+        before do
+          allow(shipment).to receive(:update!)
+
+          allow(shipment.order).to receive(:reload)
+            .and_return(shipment.order)
+
+          allow(shipment.order).to receive(:update!)
+
+          allow(Spree::Config.carton_shipped_email_class).to receive(:multi_shipped_email)
+            .and_return(multi_carton_mailer)
+        end
+
         it 'does not raise RecordInvalid exception' do
-          expect { subject.process }.not_to raise_error(ActiveRecord::RecordInvalid)
+          expect { subject.process }.not_to raise_error
         end
       end
     end

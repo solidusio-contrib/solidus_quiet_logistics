@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 SolidusQuietLogistics.configure do |config|
-  config.enabled = -> (order) { true }
+  config.enabled = ->(_order) { true }
   config.support_email = 'support@example.com'
 
   # Quiet Logistics configuration ( provided by QL )

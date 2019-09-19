@@ -2,7 +2,7 @@
 
 module SolidusQuietLogistics
   module Inbound
-    class RmaMailer < BaseMailer
+    class RMAMailer < BaseMailer
       def failed_refund_to_customer(return_authorization, return_items)
         @return_authorization = return_authorization
         @return_items = return_items

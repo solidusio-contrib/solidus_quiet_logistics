@@ -1,4 +1,6 @@
-class AddPushedToSpreeShipment < ActiveRecord::Migration[5.2]
+# frozen_string_literal: true
+
+class AddPushedToSpreeShipment < SolidusSupport::Migration[4.2]
   def change
     add_column :spree_shipments, :pushed, :boolean, default: false
 

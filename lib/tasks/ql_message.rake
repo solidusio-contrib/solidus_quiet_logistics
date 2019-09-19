@@ -5,6 +5,6 @@ namespace :ql_message do
 
   task cancel_old_messages: :environment do
     QlMessage.where('created_at > ?', 90.days.ago)
-      .where(success: true).destroy_all
+             .where(success: true).destroy_all
   end
 end

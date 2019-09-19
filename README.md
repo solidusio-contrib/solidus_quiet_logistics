@@ -1,6 +1,8 @@
 SolidusQuietLogistics
 =====================
 
+[![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_quiet_logistics.svg?style=svg)](https://circleci.com/gh/solidusio-contrib/solidus_quiet_logistics)
+
 SolidusQuietLogistics extension serves to manage the integration with
 [Quiet Logistics](http://quietlogistics.com/) as logistics provider for your store.
 

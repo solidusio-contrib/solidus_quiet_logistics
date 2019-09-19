@@ -3,11 +3,11 @@
 module SolidusQuietLogistics
   module Admin
     module ReturnAuthorizations
-      module PushRmaDocumentAfterCreation
+      module PushRMADocumentAfterCreation
         def create
           super
 
-          SolidusQuietLogistics::Outbound::PushRmaDocumentJob.perform_later(@return_authorization) if can_push_rma_document?
+          SolidusQuietLogistics::Outbound::PushRMADocumentJob.perform_later(@return_authorization) if can_push_rma_document?
         end
 
         private

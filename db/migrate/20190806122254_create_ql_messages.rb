@@ -1,4 +1,6 @@
-class CreateQlMessages < ActiveRecord::Migration[5.2]
+# frozen_string_literal: true
+
+class CreateQlMessages < SolidusSupport::Migration[4.2]
   def change
     create_table :ql_messages do |t|
       t.string :document_name, null: false

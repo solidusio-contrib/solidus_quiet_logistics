@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusQuietLogistics
   class Engine < Rails::Engine
     require 'spree/core'
@@ -8,8 +10,6 @@ module SolidusQuietLogistics
     config.generators do |g|
       g.test_framework :rspec
     end
-
-    config.autoload_paths += %W(#{config.root}/lib)
 
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/decorators/**/*.rb')) do |c|

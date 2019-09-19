@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusQuietLogistics::Inbound::Document::RmaResultDocument do
+RSpec.describe SolidusQuietLogistics::Inbound::Document::RMAResultDocument do
   let(:correct_rma_dict) do
     {
       line: '1',
@@ -64,9 +64,9 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RmaResultDocument do
       described_class.new(
         rma_number: return_authorization_number,
         rma_items: [
-          described_class::RmaItem.new(correct_rma_dict),
-          described_class::RmaItem.new(damaged_rma_dict),
-          described_class::RmaItem.new(incorrect_rma_dict),
+          described_class::RMAItem.new(correct_rma_dict),
+          described_class::RMAItem.new(damaged_rma_dict),
+          described_class::RMAItem.new(incorrect_rma_dict),
         ],
       )
     end
@@ -78,23 +78,35 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RmaResultDocument do
 
     let(:variant) { create(:variant, sku: '050-00400') }
 
-    let!(:good_return_item) { create(:return_item, return_authorization: return_authorization) }
-    let!(:damaged_return_item) { create(:return_item, return_authorization: return_authorization) }
-    let!(:incorrect_return_item) { create(:return_item, return_authorization: return_authorization) }
+    let!(:good_return_item) do
+      create(:return_item,
+             inventory_unit: create(:inventory_unit, order: create(:order), state: 'shipped'),
+             return_authorization: return_authorization,)
+    end
+    let!(:damaged_return_item) do
+      create(:return_item,
+             inventory_unit: create(:inventory_unit, order: create(:order), state: 'shipped'),
+             return_authorization: return_authorization,)
+    end
+    let!(:incorrect_return_item) do
+      create(:return_item,
+             inventory_unit: create(:inventory_unit, order: create(:order), state: 'shipped'),
+             return_authorization: return_authorization,)
+    end
 
     let(:rma_document_to_customer_mailer) { instance_double('ActionMailer::Delivery') }
     let(:rma_document_to_suppport_mailer) { instance_double('ActionMailer::Delivery') }
 
     before do
-      allow(SolidusQuietLogistics::Inbound::RmaMailer).to receive(:failed_refund_to_customer)
+      allow(SolidusQuietLogistics::Inbound::RMAMailer).to receive(:failed_refund_to_customer)
         .and_return(rma_document_to_customer_mailer)
 
-      allow(SolidusQuietLogistics::Inbound::RmaMailer).to receive(:failed_refund_to_support)
+      allow(SolidusQuietLogistics::Inbound::RMAMailer).to receive(:failed_refund_to_support)
         .and_return(rma_document_to_suppport_mailer)
 
       return_authorization.reload.return_items.map do |return_item|
-        return_item.inventory_unit.update_attributes(variant: variant)
-        return_item.shipment.update_attributes(order: order)
+        return_item.inventory_unit.update(variant: variant)
+        return_item.shipment.update(order: order)
       end
     end
 
@@ -138,8 +150,8 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RmaResultDocument do
         described_class.new(
           rma_number: return_authorization_number,
           rma_items: [
-            described_class::RmaItem.new(correct_rma_dict),
-            described_class::RmaItem.new(damaged_rma_dict),
+            described_class::RMAItem.new(correct_rma_dict),
+            described_class::RMAItem.new(damaged_rma_dict),
           ],
         )
       end
@@ -161,7 +173,7 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::RmaResultDocument do
         described_class.new(
           rma_number: return_authorization_number,
           rma_items: [
-            described_class::RmaItem.new(incorrect_rma_dict),
+            described_class::RMAItem.new(incorrect_rma_dict),
           ],
         )
       end

@@ -1,5 +1,9 @@
-class AddQlRmaReceivedDateToSpreeInventoryUnit < ActiveRecord::Migration[5.2]
+# frozen_string_literal: true
+
+class AddQlRMAReceivedDateToSpreeInventoryUnit < SolidusSupport::Migration[4.2]
   def change
     add_column :spree_inventory_units, :ql_rma_received, :datetime
   end
 end
+
+AddQlRmaReceivedDateToSpreeInventoryUnit = AddQlRMAReceivedDateToSpreeInventoryUnit

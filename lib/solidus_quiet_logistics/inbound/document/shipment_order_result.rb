@@ -107,9 +107,9 @@ module SolidusQuietLogistics
                 tracking_number: carton.tracking_number,
                 suppress_mailer: true,
               )
-            end
+            end.compact
 
-            shipment.update_attributes!(tracking: cartons.map(&:tracking_number).join(','))
+            shipment.update!(tracking: cartons.map(&:tracking_number).join(','))
 
             # Needed in order to update the order's shipment_state. Otherwise, the updater is called
             # with a collection of old shipments whose states are still "pending".
@@ -127,8 +127,8 @@ module SolidusQuietLogistics
 
           orders.each do |order|
             Spree::Config.carton_shipped_email_class
-              .multi_shipped_email(order: order, cartons: shipped_cartons)
-              .deliver_later
+                         .multi_shipped_email(order: order, cartons: shipped_cartons)
+                         .deliver_later
           end
         end
       end

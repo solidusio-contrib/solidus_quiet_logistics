@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 SolidusQuietLogistics.configure do |config|
-  config.enabled = -> (order) { true }
+  config.enabled = ->(_order) { true }
 
   config.client_id = 'client_id'
   config.business_unit = 'business_unit'

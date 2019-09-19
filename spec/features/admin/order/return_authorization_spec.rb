@@ -11,7 +11,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
   let(:shipment) { order.shipments.first }
   let(:quiet_logistics_enabled) { true }
 
-  def fill_in_rma(stock_location)
+  def fill_in_rma(_stock_location)
     expect(page).to have_css '[data-hook="admin_return_authorization_form_fields"]'
 
     find('#select-all').set true
@@ -31,7 +31,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
 
     allow(SolidusQuietLogistics.configuration)
       .to receive(:enabled)
-      .and_return(proc { |order| quiet_logistics_enabled })
+      .and_return(proc { |_order| quiet_logistics_enabled })
   end
 
   describe 'The create RMA button on the whole order' do
@@ -79,7 +79,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
       context 'when quiet_logistics is enabled' do
         it 'redirects to admin_order_return_authorizations_path and shows error message' do
           expect(page).not_to have_selector('.return-items-table')
-          expect(page).to have_content(Spree.t('cannot_perform_operation'))
+          expect(page).to have_content(I18n.t('spree.cannot_perform_operation'))
         end
       end
 
@@ -103,8 +103,8 @@ describe 'Create Return Authorization', type: :feature, js: true do
         find_all('.shipment-rma').first.click
 
         expect(page).to have_selector('.return-items-table tbody tr',
-          count: shipment.inventory_units.count)
-        expect(SolidusQuietLogistics::Outbound::PushRmaDocumentJob).to receive(:perform_later)
+                                      count: shipment.inventory_units.count)
+        expect(SolidusQuietLogistics::Outbound::PushRMADocumentJob).to receive(:perform_later)
 
         fill_in_rma(shipment.stock_location)
       end
@@ -116,7 +116,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
 
         let(:inventory_unit) do
           order.inventory_units.first.tap do |inventory_unit|
-            inventory_unit.update(ql_rma_sent: Time.now)
+            inventory_unit.update!(ql_rma_sent: Time.now)
           end
         end
 

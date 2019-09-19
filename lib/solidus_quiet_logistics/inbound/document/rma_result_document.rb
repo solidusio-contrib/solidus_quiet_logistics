@@ -3,10 +3,10 @@
 module SolidusQuietLogistics
   module Inbound
     class Document < SolidusQuietLogistics::Document
-      class RmaResultDocument < SolidusQuietLogistics::Inbound::Document
-        class RmaItem
+      class RMAResultDocument < SolidusQuietLogistics::Inbound::Document
+        class RMAItem
           attr_reader :line, :number, :quantity, :product_status, :order_number,
-            :notes
+                      :notes
 
           class << self
             def from_element(line)
@@ -22,7 +22,7 @@ module SolidusQuietLogistics
           end
 
           def initialize(line:, number:, quantity:, product_status:,
-            order_number:, notes: '')
+                         order_number:, notes: '')
 
             @line = line
             @number = number
@@ -41,7 +41,7 @@ module SolidusQuietLogistics
         class << self
           def from_xml(body)
             nokogiri = Nokogiri::XML(body)
-            items = nokogiri.css('Line').map { |line| RmaItem.from_element(line) }
+            items = nokogiri.css('Line').map { |line| RMAItem.from_element(line) }
 
             new(
               rma_number: nokogiri.xpath('//@RMANumber').first.text,
@@ -72,9 +72,9 @@ module SolidusQuietLogistics
         def return_authorization_items(return_items)
           return_items.flat_map do |item|
             return_authorization.return_items
-              .where(acceptance_status: 'pending')
-              .joins(inventory_unit: :variant)
-              .where(spree_variants: { sku: item.number }).limit(item.quantity)
+                                .where(acceptance_status: 'pending')
+                                .joins(inventory_unit: :variant)
+                                .where(spree_variants: { sku: item.number }).limit(item.quantity)
           end
         end
 
@@ -93,11 +93,17 @@ module SolidusQuietLogistics
           end
 
           begin
+            return_args = if Spree.solidus_gem_version <= Gem::Version.new('2.8.0')
+              []
+            else
+              [{ created_by: return_authorization.order.user }]
+            end
+
             Spree::Reimbursement.create!(
               order: return_authorization.order,
               customer_return: customer_return,
               return_items: return_items,
-            ).return_all(created_by: return_authorization.order.user)
+            ).return_all(*return_args)
           rescue Spree::Reimbursement::IncompleteReimbursementError => e
             Rails.logger.info e.message
           end
@@ -111,14 +117,14 @@ module SolidusQuietLogistics
             return_item.inventory_unit.update!(ql_rma_sent: nil)
           end
 
-          SolidusQuietLogistics::Inbound::RmaMailer
+          SolidusQuietLogistics::Inbound::RMAMailer
             .failed_refund_to_customer(
               return_authorization,
               return_items,
             )
             .deliver_later
 
-          SolidusQuietLogistics::Inbound::RmaMailer
+          SolidusQuietLogistics::Inbound::RMAMailer
             .failed_refund_to_support(
               return_authorization,
               return_items,
