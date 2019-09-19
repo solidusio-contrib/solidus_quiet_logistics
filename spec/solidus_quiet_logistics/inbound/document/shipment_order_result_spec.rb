@@ -192,7 +192,7 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::ShipmentOrderResult do
         end
 
         it 'does not raise RecordInvalid exception' do
-          expect { subject.process }.not_to raise_error(ActiveRecord::RecordInvalid)
+          expect { subject.process }.not_to raise_error
         end
       end
     end
