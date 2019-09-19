@@ -191,6 +191,18 @@ RSpec.describe SolidusQuietLogistics::Inbound::Document::ShipmentOrderResult do
           ]
         end
 
+        before do
+          allow(shipment).to receive(:update!)
+
+          allow(shipment.order).to receive(:reload)
+            .and_return(shipment.order)
+
+          allow(shipment.order).to receive(:update!)
+
+          allow(Spree::Config.carton_shipped_email_class).to receive(:multi_shipped_email)
+            .and_return(multi_carton_mailer)
+        end
+
         it 'does not raise RecordInvalid exception' do
           expect { subject.process }.not_to raise_error
         end

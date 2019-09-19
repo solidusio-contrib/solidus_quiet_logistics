@@ -107,7 +107,7 @@ module SolidusQuietLogistics
                 tracking_number: carton.tracking_number,
                 suppress_mailer: true,
               )
-            end
+            end.compact
 
             shipment.update!(tracking: cartons.map(&:tracking_number).join(','))
 
