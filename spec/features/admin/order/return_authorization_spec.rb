@@ -79,7 +79,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
       context 'when quiet_logistics is enabled' do
         it 'redirects to admin_order_return_authorizations_path and shows error message' do
           expect(page).not_to have_selector('.return-items-table')
-          expect(page).to have_content(Spree.t('cannot_perform_operation'))
+          expect(page).to have_content(I18n.t('spree.cannot_perform_operation'))
         end
       end
 
