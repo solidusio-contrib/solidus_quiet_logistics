@@ -52,12 +52,12 @@ RSpec.describe SolidusQuietLogistics::Outbound::PushShipmentOrderDocumentJob do
   end
 
   context 'when perform is called with a bad argument' do
-    subject { -> { described_class.perform_now(bad_argument) } }
+    subject { described_class.perform_now(bad_argument) }
 
     let(:bad_argument) { 'Bad argument' }
 
     it 'raises an argument error exception' do
-      expect(subject).to raise_error(ArgumentError)
+      expect { subject }.to raise_error(ArgumentError)
     end
   end
 end
