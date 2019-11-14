@@ -120,7 +120,7 @@ describe 'Create Return Authorization', type: :feature, js: true do
           end
         end
 
-        it 'shows the pushed inventory units as not editable' do
+        xit 'shows the pushed inventory units as not editable' do
           find_all('.shipment-rma').first.click
 
           within '.inventory-unit-checkbox' do
