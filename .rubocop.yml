@@ -1,38 +1,9 @@
-inherit_from:
-  - .rubocop_todo.yml
-  - https://relaxed.ruby.style/rubocop.yml
+require:
+  - solidus_extension_dev_tools/rubocop
 
-
-
-require: rubocop-rspec
+inherit_gem:
+  solidus_extension_dev_tools: .rubocop.extension.yml
 
 AllCops:
-  TargetRubyVersion: 2.3
   Exclude:
     - spec/dummy/**/*
-
-RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Enabled: true
-  Exclude:
-    - spec/features/**/*
-
-Metrics/BlockLength:
-  Enabled: false
-
-Layout/IndentFirstArgument:
-  EnforcedStyle: consistent
-
-Layout/CaseIndentation:
-  EnforcedStyle: end
-
-Layout/EndAlignment:
-  EnforcedStyleAlignWith: start_of_line
-
-Layout/IndentFirstArrayElement:
-  EnforcedStyle: consistent
-
-Layout/IndentFirstHashElement:
-  EnforcedStyle: consistent
