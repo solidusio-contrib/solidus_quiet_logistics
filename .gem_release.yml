@@ -1,0 +1,5 @@
+bump:
+  recurse: false
+  file: 'lib/solidus_quiet_logistics/version.rb'
+  message: Bump SolidusQuietLogistics to %{version}
+  tag: true

@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require 'spree/core'
+
 module SolidusQuietLogistics
   class Engine < Rails::Engine
-    require 'spree/core'
-    isolate_namespace Spree
+    include SolidusSupport::EngineExtensions::Decorators
+
+    isolate_namespace ::Spree
+
     engine_name 'solidus_quiet_logistics'
 
     # use rspec for tests
