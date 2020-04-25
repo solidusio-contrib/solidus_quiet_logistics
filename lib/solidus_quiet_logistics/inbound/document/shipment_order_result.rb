@@ -84,7 +84,7 @@ module SolidusQuietLogistics
         end
 
         def process
-          shipment = Spree::Shipment.find_by(number: shipment_number)
+          shipment = ::Spree::Shipment.find_by(number: shipment_number)
           return unless shipment
 
           shipped_cartons = ActiveRecord::Base.transaction do
@@ -126,7 +126,7 @@ module SolidusQuietLogistics
           orders = shipped_cartons.flat_map(&:orders).uniq
 
           orders.each do |order|
-            Spree::Config.carton_shipped_email_class
+            ::Spree::Config.carton_shipped_email_class
                          .multi_shipped_email(order: order, cartons: shipped_cartons)
                          .deliver_later
           end

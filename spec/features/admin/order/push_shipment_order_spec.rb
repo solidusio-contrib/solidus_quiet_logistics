@@ -28,7 +28,7 @@ RSpec.describe 'Push shipment order', type: :feature, js: true do
       let(:pushed) { false }
 
       it 'shows push shipment order button' do
-        expect(page).to have_selector('.push-shipment')
+        expect(page).to have_css('.push-shipment')
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe 'Push shipment order', type: :feature, js: true do
       let(:pushed) { true }
 
       it 'does not show push shipment order button' do
-        expect(page).not_to have_selector('.push-shipment')
+        expect(page).not_to have_css('.push-shipment')
       end
     end
   end

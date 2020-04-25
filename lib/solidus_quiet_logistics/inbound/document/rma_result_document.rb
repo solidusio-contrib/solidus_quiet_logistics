@@ -53,7 +53,7 @@ module SolidusQuietLogistics
         attr_reader :return_authorization, :rma_items
 
         def initialize(rma_number:, rma_items: [])
-          @return_authorization = Spree::ReturnAuthorization.find_by(number: rma_number)
+          @return_authorization = ::Spree::ReturnAuthorization.find_by(number: rma_number)
           @rma_items = rma_items
         end
 
@@ -82,7 +82,7 @@ module SolidusQuietLogistics
           return_items = return_authorization_items(correct_items)
           return if return_items.empty?
 
-          customer_return = Spree::CustomerReturn.create!(
+          customer_return = ::Spree::CustomerReturn.create!(
             stock_location: return_authorization.stock_location,
             return_items: return_items,
           )
@@ -93,18 +93,18 @@ module SolidusQuietLogistics
           end
 
           begin
-            return_args = if Spree.solidus_gem_version <= Gem::Version.new('2.8.0')
+            return_args = if ::Spree.solidus_gem_version <= Gem::Version.new('2.8.0')
               []
             else
               [{ created_by: return_authorization.order.user }]
             end
 
-            Spree::Reimbursement.create!(
+            ::Spree::Reimbursement.create!(
               order: return_authorization.order,
               customer_return: customer_return,
               return_items: return_items,
             ).return_all(*return_args)
-          rescue Spree::Reimbursement::IncompleteReimbursementError => e
+          rescue ::Spree::Reimbursement::IncompleteReimbursementError => e
             Rails.logger.info e.message
           end
         end

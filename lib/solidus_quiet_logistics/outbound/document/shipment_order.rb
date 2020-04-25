@@ -40,7 +40,7 @@ module SolidusQuietLogistics
                 )
 
                 order_header.ShipTo(
-                  Contact: shipment.order.ship_address.full_name,
+                  Contact: address_name_for(shipment.order.ship_address),
                   Address1: shipment.order.ship_address.address1,
                   Address2: shipment.order.ship_address.address2,
                   City: shipment.order.ship_address.city,
@@ -52,7 +52,7 @@ module SolidusQuietLogistics
                 )
 
                 order_header.BillTo(
-                  Contact: shipment.order.bill_address.full_name,
+                  Contact: address_name_for(shipment.order.bill_address),
                   Address1: shipment.order.bill_address.address1,
                   Address2: shipment.order.bill_address.address2,
                   City: shipment.order.bill_address.city,
@@ -118,6 +118,10 @@ module SolidusQuietLogistics
 
         def gift_message
           SolidusQuietLogistics.configuration.order_gift_message&.call(shipment.order)
+        end
+
+        def address_name_for(address)
+          address.respond_to?(:name) ? address.name : address.full_name
         end
       end
     end
