@@ -7,9 +7,9 @@ module SolidusQuietLogistics
 
       def perform(element_to_push)
         case element_to_push
-        when Spree::Shipment
+        when ::Spree::Shipment
           perform_shipment(element_to_push)
-        when Spree::Order
+        when ::Spree::Order
           perform_order(element_to_push)
         else
           raise ArgumentError, 'This job accept only shipment or order as argument'

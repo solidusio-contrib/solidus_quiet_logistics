@@ -2,7 +2,7 @@
 
 module SolidusQuietLogistics
   module Inbound
-    class BaseMailer < Spree::BaseMailer
+    class BaseMailer < ::Spree::BaseMailer
       helper ApplicationHelper
 
       private

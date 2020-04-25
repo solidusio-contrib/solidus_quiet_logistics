@@ -23,7 +23,7 @@ module SolidusQuietLogistics
           @shipment_number = shipment_number
           @date_cancelled = date_cancelled
           @cancellation_status = cancellation_status
-          @shipment = Spree::Shipment.find_by(number: shipment_number)
+          @shipment = ::Spree::Shipment.find_by(number: shipment_number)
         end
 
         def process

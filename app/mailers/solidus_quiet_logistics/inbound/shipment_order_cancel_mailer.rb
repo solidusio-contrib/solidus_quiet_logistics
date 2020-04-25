@@ -11,7 +11,7 @@ module SolidusQuietLogistics
 
         mail(
           to: recipient,
-          from: from_address(Spree::Store.default),
+          from: from_address(::Spree::Store.default),
           subject: t('quiet_logistics.mailers.shipment_cancellation_failed.title'),
         )
       end
@@ -24,7 +24,7 @@ module SolidusQuietLogistics
 
         mail(
           to: recipient,
-          from: from_address(Spree::Store.default),
+          from: from_address(::Spree::Store.default),
           subject: t('quiet_logistics.mailers.shipment_successfully_cancelled.title'),
         )
       end

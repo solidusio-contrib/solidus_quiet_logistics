@@ -50,10 +50,10 @@ module SolidusQuietLogistics
         end
 
         def process
-          stock_location = Spree::StockLocation.order_default.first
+          stock_location = ::Spree::StockLocation.order_default.first
 
           items.each do |item|
-            variant = Spree::Variant.find_by(sku: item.sku)
+            variant = ::Spree::Variant.find_by(sku: item.sku)
             next unless variant
 
             stock_item = stock_location.stock_item_or_create(variant)
