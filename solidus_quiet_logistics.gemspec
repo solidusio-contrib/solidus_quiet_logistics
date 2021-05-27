@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'aws-sdk', '~> 3'
   s.add_dependency 'deface', '~> 1.3'
-  s.add_dependency 'solidus', ['>= 1.1', '< 3']
-  s.add_dependency 'solidus_support', '~> 0.5'
+  s.add_dependency 'solidus', ['>= 1.1', '< 4']
+  s.add_dependency 'solidus_support', '~> 0.8'
 
   s.add_development_dependency 'solidus_dev_support'
 end
