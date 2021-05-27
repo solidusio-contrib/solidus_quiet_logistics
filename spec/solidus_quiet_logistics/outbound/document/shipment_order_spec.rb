@@ -47,6 +47,22 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::ShipmentOrder do
 
     let(:order_date) { order.created_at.strftime('%Y-%m-%dT%H:%M:%SZ') }
 
+    let(:ship_name) do
+      if SolidusSupport.combined_first_and_last_name_in_address?
+        ship_address.name
+      else
+        ship_address.full_name
+      end
+    end
+
+    let(:bill_name) do
+      if SolidusSupport.combined_first_and_last_name_in_address?
+        bill_address.name
+      else
+        bill_address.full_name
+      end
+    end
+
     let(:xml) {
       <<~XML
         <?xml version="1.0" encoding="utf-8"?>
@@ -56,8 +72,8 @@ RSpec.describe SolidusQuietLogistics::Outbound::Document::ShipmentOrder do
           <OrderHeader OrderNumber="#{shipment.number}" OrderType="SO" CustomerPO="#{shipment.number}" VIPCustomer="false" StoreDelivery="false" Gift="#{gift_message.present?}" OrderPriority="#{order_priority}" OrderDate="#{order_date}">
             <Comments>#{gift_message}</Comments>
             <ShipMode Carrier="#{shipping_method.carrier}" ServiceLevel="#{shipping_method.service_level}"/>
-            <ShipTo Contact="#{ship_address.full_name}" Address1="#{ship_address.address1}" Address2="#{ship_address.address2}" City="#{ship_address.city}" State="#{ship_address.state.name}" PostalCode="#{ship_address.zipcode}" Country="#{ship_address.country.iso}" Phone="#{ship_address.phone}" Email="#{order.email}"/>
-            <BillTo Contact="#{bill_address.full_name}" Address1="#{bill_address.address1}" Address2="#{bill_address.address2}" City="#{bill_address.city}" State="#{bill_address.state.name}" PostalCode="#{bill_address.zipcode}" Country="#{bill_address.country.iso}" Phone="#{bill_address.phone}" Email="#{order.email}"/>
+            <ShipTo Contact="#{ship_name}" Address1="#{ship_address.address1}" Address2="#{ship_address.address2}" City="#{ship_address.city}" State="#{ship_address.state.name}" PostalCode="#{ship_address.zipcode}" Country="#{ship_address.country.iso}" Phone="#{ship_address.phone}" Email="#{order.email}"/>
+            <BillTo Contact="#{bill_name}" Address1="#{bill_address.address1}" Address2="#{bill_address.address2}" City="#{bill_address.city}" State="#{bill_address.state.name}" PostalCode="#{bill_address.zipcode}" Country="#{bill_address.country.iso}" Phone="#{bill_address.phone}" Email="#{order.email}"/>
             <ValueAddedService Service="string" ServiceType="string"/>
           </OrderHeader>
           <OrderDetails Line="1" ItemNumber="#{first_line_item.sku}" QuantityOrdered="5" QuantityToShip="5" Price="#{first_line_item.price}" UOM="EA"/>
