@@ -6,7 +6,7 @@ SolidusQuietLogistics.configure do |config|
   config.client_id = 'client_id'
   config.business_unit = 'business_unit'
 
-  config.aws_region = 'aws_region'
+  config.aws_region = 'us-west-2'
   config.aws_outbox_queue_url = 'aws_outbox_queue_url'
   config.aws_outbox_bucket = 'aws_outbox_bucket'
   config.aws_inbox_queue_url = 'aws_inbox_queue_url'

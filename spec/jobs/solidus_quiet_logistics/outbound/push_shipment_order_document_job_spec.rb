@@ -12,7 +12,7 @@ RSpec.describe SolidusQuietLogistics::Outbound::PushShipmentOrderDocumentJob do
     let(:second_shipment_order) { instance_spy(SolidusQuietLogistics::Outbound::Document::ShipmentOrder) }
 
     before do
-      order.shipments << create(:shipment, order: order)
+      create(:shipment, order: order)
 
       allow(SolidusQuietLogistics::Outbound::Document::ShipmentOrder).to receive(:new)
         .with(order.shipments.first)

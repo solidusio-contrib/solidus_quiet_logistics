@@ -5,7 +5,7 @@ require 'spec_helper'
 describe 'Create Return Authorization', type: :feature, js: true do
   include Warden::Test::Helpers
 
-  let(:user) { create(:admin_user) }
+  let(:user) { create(:admin_user, :with_api_key) }
 
   let(:order) { create(:order_ready_to_ship) }
   let(:shipment) { order.shipments.first }

@@ -7,7 +7,7 @@ RSpec.describe 'Push shipment order', type: :feature, js: true do
   include Spree::BaseHelper
 
   let!(:store) { create(:store) }
-  let(:admin_user) { create(:admin_user) }
+  let(:admin_user) { create(:admin_user, :with_api_key) }
 
   before do
     login_as admin_user
