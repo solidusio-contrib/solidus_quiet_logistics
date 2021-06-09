@@ -12,7 +12,11 @@ RSpec.describe SolidusQuietLogistics::Outbound::PushShipmentOrderDocumentJob do
     let(:second_shipment_order) { instance_spy(SolidusQuietLogistics::Outbound::Document::ShipmentOrder) }
 
     before do
-      create(:shipment, order: order)
+      if Rails.gem_version > Gem::Version.new(6.1)
+        create(:shipment, order: order)
+      else
+        order.shipments << create(:shipment, order: order)
+      end
 
       allow(SolidusQuietLogistics::Outbound::Document::ShipmentOrder).to receive(:new)
         .with(order.shipments.first)
