@@ -15,10 +15,12 @@ require 'solidus_dev_support/rspec/feature_helper'
 # in spec/support/ and its subdirectories.
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
-# Requires factories defined in lib/solidus_quiet_logistics/factories.rb
-require 'solidus_quiet_logistics/factories'
+# Will load Solidus core factory first and then the ones
+# defined in `lib/solidus_log_viewer/testing_support/factories`.
+SolidusDevSupport::TestingSupport::Factories.load_for(SolidusQuietLogistics::Engine)
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
+  config.include ActiveSupport::Testing::Assertions
 end

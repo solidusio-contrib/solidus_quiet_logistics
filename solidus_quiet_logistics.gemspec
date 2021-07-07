@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = s.summary
   s.license     = 'BSD-3-Clause'
 
-  s.required_ruby_version = '~> 2.4'
+  s.required_ruby_version = '~> 2.5'
 
   s.author    = 'Andrea Vassallo'
   s.email     = 'andreavassallo@nebulab.it'
@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'aws-sdk', '~> 3'
   s.add_dependency 'deface', '~> 1.3'
-  s.add_dependency 'solidus', ['>= 1.1', '< 3']
-  s.add_dependency 'solidus_support', '~> 0.5'
+  s.add_dependency 'solidus', ['>= 1.1', '< 4']
+  s.add_dependency 'solidus_support', '~> 0.8'
 
   s.add_development_dependency 'solidus_dev_support'
 end
